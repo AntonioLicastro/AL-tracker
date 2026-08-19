@@ -6,8 +6,6 @@ export type Staff = {
   team: Team
   color: string
   sort_order: number
-  user_id: string | null
-  is_manager: boolean
 }
 
 export type LeaveDay = {

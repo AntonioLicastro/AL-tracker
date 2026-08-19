@@ -9,8 +9,6 @@ type Props = {
   dateIso: string
   staff: Staff[]
   offStaffIds: Set<string>
-  currentUserId: string | null
-  isManager: boolean
   onClose: () => void
 }
 
@@ -19,7 +17,7 @@ const TEAM_LABELS: Record<Staff['team'], string> = {
   slt_support: 'SLT + Support',
 }
 
-export default function DayModal({ dateIso, staff, offStaffIds, currentUserId, isManager, onClose }: Props) {
+export default function DayModal({ dateIso, staff, offStaffIds, onClose }: Props) {
   const [pending, setPending] = useState<string | null>(null)
   const [error, setError] = useState('')
 
@@ -56,15 +54,12 @@ export default function DayModal({ dateIso, staff, offStaffIds, currentUserId, i
               <div className="space-y-1">
                 {staff.filter(s => s.team === team).map(person => {
                   const isOff = offStaffIds.has(person.id)
-                  const canEdit = isManager || person.user_id === currentUserId
                   return (
                     <button
                       key={person.id}
-                      disabled={!canEdit || pending === person.id}
+                      disabled={pending === person.id}
                       onClick={() => toggle(person, isOff)}
-                      className={`w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-sm text-left transition ${
-                        canEdit ? 'hover:bg-gray-50' : 'opacity-70 cursor-default'
-                      }`}
+                      className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-sm text-left hover:bg-gray-50 transition"
                     >
                       <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: person.color }} />
                       <span className="flex-1 text-gray-800">{person.name}</span>
@@ -74,9 +69,9 @@ export default function DayModal({ dateIso, staff, offStaffIds, currentUserId, i
                         <span className="flex items-center gap-1 text-xs font-medium text-emerald-600">
                           <Check size={14} /> Off
                         </span>
-                      ) : canEdit ? (
+                      ) : (
                         <span className="text-xs text-gray-300">Mark off</span>
-                      ) : null}
+                      )}
                     </button>
                   )
                 })}

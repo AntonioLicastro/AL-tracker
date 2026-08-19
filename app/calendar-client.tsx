@@ -10,7 +10,6 @@ import type { Staff, LeaveDay, Team } from './types'
 type Props = {
   staff: Staff[]
   leaveDays: LeaveDay[]
-  currentUserId: string | null
 }
 
 const TEAM_TABS: { key: Team | 'all'; label: string }[] = [
@@ -19,7 +18,7 @@ const TEAM_TABS: { key: Team | 'all'; label: string }[] = [
   { key: 'slt_support', label: 'SLT + Support' },
 ]
 
-export default function CalendarClient({ staff, leaveDays, currentUserId }: Props) {
+export default function CalendarClient({ staff, leaveDays }: Props) {
   const [year, setYear] = useState(new Date().getFullYear())
   const [teamFilter, setTeamFilter] = useState<Team | 'all'>('all')
   const [selectedDate, setSelectedDate] = useState<string | null>(null)
@@ -52,9 +51,6 @@ export default function CalendarClient({ staff, leaveDays, currentUserId }: Prop
   const offOnSelectedDate = selectedDate
     ? new Set(leaveDays.filter(d => d.leave_date === selectedDate).map(d => d.staff_id))
     : new Set<string>()
-
-  const isManager = staff.some(s => s.user_id === currentUserId && s.is_manager)
-  const hasClaimed = staff.some(s => s.user_id === currentUserId)
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-6">
@@ -100,7 +96,7 @@ export default function CalendarClient({ staff, leaveDays, currentUserId }: Prop
       </div>
 
       <div>
-        <Legend staff={staff} totals={totals} currentUserId={currentUserId} hasClaimed={hasClaimed} />
+        <Legend staff={staff} totals={totals} />
       </div>
 
       {selectedDate && (
@@ -108,8 +104,6 @@ export default function CalendarClient({ staff, leaveDays, currentUserId }: Prop
           dateIso={selectedDate}
           staff={staff}
           offStaffIds={offOnSelectedDate}
-          currentUserId={currentUserId}
-          isManager={isManager}
           onClose={() => setSelectedDate(null)}
         />
       )}

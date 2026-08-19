@@ -1,16 +1,10 @@
-import { redirect } from 'next/navigation'
-import { createClient } from '@/utils/supabase/server'
+import { createClient } from '@/utils/supabase/client'
 import NavHeader from './nav-header'
 import CalendarClient from './calendar-client'
 import type { Staff, LeaveDay } from './types'
 
 export default async function HomePage() {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-
-  if (!user) {
-    redirect('/login')
-  }
+  const supabase = createClient()
 
   const [{ data: staff, error: staffError }, { data: leaveDays, error: leaveError }] = await Promise.all([
     supabase.from('al_staff').select('*').order('team').order('sort_order').returns<Staff[]>(),
@@ -30,7 +24,7 @@ export default async function HomePage() {
           </div>
         )}
 
-        <CalendarClient staff={staff ?? []} leaveDays={leaveDays ?? []} currentUserId={user.id} />
+        <CalendarClient staff={staff ?? []} leaveDays={leaveDays ?? []} />
       </div>
     </div>
   )
