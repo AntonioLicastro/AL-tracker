@@ -3,6 +3,8 @@
 -- per-person color in that sheet's key. 4 stray colored cells across
 -- the whole workbook didn't match any known person's color and were
 -- left out rather than guessed (flagged separately, not in this file).
+-- Already applied directly against the live database; this file is kept
+-- for the record and is safe to re-run (on conflict do nothing).
 insert into public.al_leave_days (staff_id, leave_date)
 select s.id, v.leave_date::date
 from (values
@@ -96,11 +98,6 @@ from (values
   ('Paula G', 'rms', '2026-03-03'),
   ('Paula G', 'rms', '2026-06-02'),
   ('Paula G', 'rms', '2026-06-03'),
-  ('Tanya B', 'rms', '2026-09-23'),
-  ('Tanya B', 'rms', '2026-09-24'),
-  ('Tanya B', 'rms', '2026-09-28'),
-  ('Tanya B', 'rms', '2026-09-30'),
-  ('Tanya B', 'rms', '2026-10-01'),
   ('Aisling', 'slt_support', '2026-03-02'),
   ('Aisling', 'slt_support', '2026-06-02'),
   ('Aisling', 'slt_support', '2026-07-13'),

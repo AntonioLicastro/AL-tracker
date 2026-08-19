@@ -3,6 +3,10 @@ import NavHeader from './nav-header'
 import CalendarClient from './calendar-client'
 import type { Staff, LeaveDay } from './types'
 
+// This data changes constantly (leave marked/unmarked, staff added/removed)
+// so it must never be statically prerendered at build time.
+export const dynamic = 'force-dynamic'
+
 export default async function HomePage() {
   const supabase = createClient()
 
