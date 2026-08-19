@@ -2,7 +2,7 @@ import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
 const ALLOWED_DOMAIN = '@platinumhomecare.ie'
-const PUBLIC_PATHS = ['/login', '/auth/confirm', '/auth/handoff']
+const PUBLIC_PATHS = ['/login', '/auth/confirm']
 
 export async function proxy(request: NextRequest) {
   const path = request.nextUrl.pathname
