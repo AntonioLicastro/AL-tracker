@@ -1,6 +1,7 @@
 'use client'
 
 import { MONTH_NAMES, WEEKDAY_LABELS, monthGrid, toIso, todayIso } from './date-utils'
+import { initialsFor, readableTextColor } from './color-utils'
 import type { Staff } from './types'
 
 type Props = {
@@ -42,27 +43,36 @@ export default function MonthGrid({ year, month, staff, leaveByDate, onSelectDay
                   <td key={di} className="p-0.5 align-top">
                     <button
                       onClick={() => onSelectDay(dateIso)}
-                      className={`w-full h-10 rounded-md flex flex-col items-center justify-start pt-0.5 text-[11px] leading-none transition hover:ring-1 hover:ring-blue-300 ${
+                      className={`w-full h-12 rounded-md flex flex-col items-center justify-start pt-0.5 text-[11px] leading-none transition hover:ring-1 hover:ring-blue-300 ${
                         isWeekend ? 'bg-gray-50' : 'bg-white'
                       } ${isToday ? 'ring-1 ring-blue-500' : ''}`}
                     >
                       <span className={isWeekend ? 'text-gray-400' : 'text-gray-600'}>{day}</span>
                       {staffIds && staffIds.size > 0 && (
                         <span className="flex flex-wrap gap-0.5 justify-center mt-0.5 px-0.5">
-                          {Array.from(staffIds).slice(0, 4).map(id => {
+                          {Array.from(staffIds).slice(0, 3).map(id => {
                             const person = staff.find(s => s.id === id)
                             if (!person) return null
                             return (
                               <span
                                 key={id}
                                 title={person.name}
-                                className="w-1.5 h-1.5 rounded-full"
-                                style={{ backgroundColor: person.color }}
-                              />
+                                className="flex items-center justify-center rounded px-[1px] font-bold"
+                                style={{
+                                  backgroundColor: person.color,
+                                  color: readableTextColor(person.color),
+                                  fontSize: '6px',
+                                  lineHeight: 1,
+                                  minWidth: '11px',
+                                  height: '9px',
+                                }}
+                              >
+                                {initialsFor(person.name)}
+                              </span>
                             )
                           })}
-                          {staffIds.size > 4 && (
-                            <span className="text-[8px] text-gray-400">+{staffIds.size - 4}</span>
+                          {staffIds.size > 3 && (
+                            <span className="text-[8px] text-gray-400">+{staffIds.size - 3}</span>
                           )}
                         </span>
                       )}
