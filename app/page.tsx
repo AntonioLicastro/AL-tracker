@@ -19,7 +19,7 @@ export default async function HomePage() {
         <div className="max-w-xl mx-auto bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
           <NavHeader />
           <p className="text-sm text-gray-700">
-            Your account doesn&apos;t have access to the A/L Tracker. If you think it should, ask Antonio to add you.
+            Your account doesn&apos;t have access to HR Locker. If you think it should, ask Antonio to add you.
           </p>
         </div>
       </div>

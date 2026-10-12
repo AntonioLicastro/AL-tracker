@@ -48,7 +48,7 @@ export default function ConfirmPage() {
           </>
         ) : (
           <>
-            <p className="text-gray-600 text-sm">Click below to finish signing in to A/L Tracker.</p>
+            <p className="text-gray-600 text-sm">Click below to finish signing in to HR Locker.</p>
             <button
               onClick={confirm}
               disabled={status === 'loading'}

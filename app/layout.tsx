@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "A/L Tracker",
+  title: "HR Locker",
   description: "Platinum Home Care annual leave calendar",
 };
 

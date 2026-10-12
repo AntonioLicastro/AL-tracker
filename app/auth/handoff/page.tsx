@@ -7,7 +7,7 @@ import { markVerified } from '@/utils/verified-cookie'
 
 // Reached via a Platinum Hub tile: the token pair arrives in the URL hash
 // (never sent to the server) so we can adopt the caller's already-signed-in
-// Supabase session here without a second login. A/L Tracker also
+// Supabase session here without a second login. HR Locker also
 // requires the al_verified cookie (see proxy.ts), so we stamp that too.
 export default function AuthHandoffPage() {
   const [status, setStatus] = useState<'loading' | 'error'>('loading')
@@ -43,7 +43,7 @@ export default function AuthHandoffPage() {
       <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
         <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md text-center space-y-4">
           <p className="text-red-700 text-sm">
-            That sign-in link is invalid or has expired. Go back to Platinum Hub and try launching A/L Tracker again, or sign in here directly.
+            That sign-in link is invalid or has expired. Go back to Platinum Hub and try launching HR Locker again, or sign in here directly.
           </p>
           <a href="/login" className="block text-sm text-blue-600 hover:underline">Go to sign in</a>
         </div>
